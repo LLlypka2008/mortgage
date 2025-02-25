@@ -1,56 +1,29 @@
 package ru.test.mortgage.contollers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import ru.test.mortgage.models.DealEntity;
-import ru.test.mortgage.models.IndividualEntity;
-import ru.test.mortgage.models.JuridicalEntity;
-import ru.test.mortgage.repositories.DealRepository;
-import ru.test.mortgage.repositories.IndividualRepository;
-import ru.test.mortgage.repositories.JuridicalRepository;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import ru.test.mortgage.DTO.DealDTO;
+import ru.test.mortgage.DTO.IndividualDTO;
+import ru.test.mortgage.DTO.JuridicalDTO;
 
 @RestController
 @RequestMapping("/mortgage")
 public class Controller {
 
-    @Autowired
-    private DealRepository dealRepository;
-
-    @Autowired
-    private IndividualRepository individualRepository;
-
-    @Autowired
-    private JuridicalRepository juridicalRepository;
 
     @PostMapping("/juridical")
-    String postDealJuridicalSeller(@RequestBody DealEntity dealEntity, IndividualEntity buyer, JuridicalEntity seller) {
-        dealRepository.saveAndFlush(dealEntity);
-        individualRepository.saveAndFlush(buyer);
-        juridicalRepository.saveAndFlush(seller);
+    String postDealJuridicalSeller(@RequestBody DealDTO deal, IndividualDTO buyer, JuridicalDTO seller) {
+
         //TODO переписать что буду возвращать response entity
         return "Juridical";
     }
 
     @PostMapping("/individual")
-    String postDealIndividualSeller(@RequestBody DealEntity dealEntity, IndividualEntity buyer, IndividualEntity seller) {
-        dealRepository.saveAndFlush(dealEntity);
-        individualRepository.saveAndFlush(buyer);
-        individualRepository.saveAndFlush(seller);
+    String postDealIndividualSeller(@RequestBody DealDTO deal, IndividualDTO buyer, IndividualDTO seller) {
+
         //TODO переписать что буду возвращать response entity
         return "Individual";
-    }
-
-    @GetMapping("/api")
-    ResponseEntity<DealEntity> getApi() {
-
-        return new ResponseEntity<DealEntity>(HttpStatusCode.valueOf(200));
-    }
-
-    @GetMapping("/get")
-    ResponseEntity<DealEntity> getFirst() {
-        DealEntity dealEntity = dealRepository.findById(1l).get();
-        return new ResponseEntity<>(dealEntity, HttpStatusCode.valueOf(200));
     }
 }

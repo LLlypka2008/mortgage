@@ -17,7 +17,7 @@ public class DealService {
     public DealEntity createDealEntity() {
         DealEntity deal = new DealEntity();
         deal.setCreditAmount(new BigDecimal(100));
-        deal.setCreditYear(1);
+        deal.setCreditMonth(1);
         deal.setDealAmount(new BigDecimal(100));
         deal.setInitialPayment(new BigDecimal(200));
         deal.setDateOfSubmission(new Date(System.currentTimeMillis()));
